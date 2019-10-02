@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1020</width>
+    <height>734</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Печать счетов и счетов-фактур</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="tabPosition">
+       <enum>QTabWidget::West</enum>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_1">
+       <attribute name="title">
+        <string>Счета фактуры</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Счета</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1020</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Прайс-лист</string>
+    </property>
+    <addaction name="actionPEl"/>
+    <addaction name="actionPWire"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>Реквизиты</string>
+    </property>
+    <addaction name="actionOtpr"/>
+    <addaction name="actionPoluch"/>
+    <addaction name="actionCarrier"/>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>Сервис</string>
+    </property>
+    <addaction name="actionRefresh"/>
+    <addaction name="actionSurEl"/>
+    <addaction name="actionSurW"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+   <addaction name="menu_3"/>
+  </widget>
+  <action name="actionPEl">
+   <property name="text">
+    <string>Электроды</string>
+   </property>
+  </action>
+  <action name="actionPWire">
+   <property name="text">
+    <string>Проволока</string>
+   </property>
+  </action>
+  <action name="actionOtpr">
+   <property name="text">
+    <string>Отправители</string>
+   </property>
+  </action>
+  <action name="actionPoluch">
+   <property name="text">
+    <string>Получатели</string>
+   </property>
+  </action>
+  <action name="actionCarrier">
+   <property name="text">
+    <string>Перевозчики</string>
+   </property>
+  </action>
+  <action name="actionRefresh">
+   <property name="text">
+    <string>Обновить все данные</string>
+   </property>
+  </action>
+  <action name="actionSurEl">
+   <property name="text">
+    <string>Марки электродов для Сургутнефтегаз</string>
+   </property>
+  </action>
+  <action name="actionSurW">
+   <property name="text">
+    <string>Марки проволоки для Сургутнефтегаз</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
