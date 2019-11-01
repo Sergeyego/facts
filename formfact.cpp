@@ -502,6 +502,7 @@ void FormFact::createTvrSurgut(FactInfo *info)
     ws->writeNumeric(pos+i,col_from_name("CB"),info->sumNalog());
     ws->writeNumeric(pos+i,col_from_name("CI"),info->sumItogo());
 
+    ws->writeNumeric(pos+i+1,col_from_name("BB"),info->sumKvo());
     ws->writeNumeric(pos+i+1,col_from_name("BQ"),info->sumStoi());
     ws->writeNumeric(pos+i+1,col_from_name("CB"),info->sumNalog());
     ws->writeNumeric(pos+i+1,col_from_name("CI"),info->sumItogo());
