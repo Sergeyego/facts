@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>898</width>
-    <height>509</height>
+    <width>896</width>
+    <height>507</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -60,119 +60,129 @@
          <item row="1" column="1">
           <widget class="QLineEdit" name="lineEditNaim"/>
          </item>
-         <item row="2" column="0">
+         <item row="3" column="0">
           <widget class="QLabel" name="label_3">
            <property name="text">
             <string>Адрес</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
+         <item row="4" column="1">
+          <widget class="QLineEdit" name="lineEditAdresEgrul"/>
+         </item>
+         <item row="3" column="1">
           <widget class="QLineEdit" name="lineEditAdres"/>
          </item>
-         <item row="3" column="0">
+         <item row="4" column="0">
           <widget class="QLabel" name="label_13">
            <property name="text">
             <string>Адрес по ЕГРЮЛ</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="1">
-          <widget class="QLineEdit" name="lineEditAdresEgrul"/>
+         <item row="5" column="1">
+          <widget class="QLineEdit" name="lineEditTelef"/>
          </item>
-         <item row="4" column="0">
+         <item row="5" column="0">
           <widget class="QLabel" name="label_4">
            <property name="text">
             <string>Телефон</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="1">
-          <widget class="QLineEdit" name="lineEditTelef"/>
+         <item row="6" column="1">
+          <widget class="QLineEdit" name="lineEditInnKpp"/>
          </item>
-         <item row="5" column="0">
+         <item row="6" column="0">
           <widget class="QLabel" name="label_5">
            <property name="text">
             <string>ИНН/КПП</string>
            </property>
           </widget>
          </item>
-         <item row="5" column="1">
-          <widget class="QLineEdit" name="lineEditInnKpp"/>
+         <item row="7" column="1">
+          <widget class="QLineEdit" name="lineEditOkpo"/>
          </item>
-         <item row="6" column="0">
+         <item row="7" column="0">
           <widget class="QLabel" name="label_12">
            <property name="text">
             <string>ОКПО</string>
            </property>
           </widget>
          </item>
-         <item row="6" column="1">
-          <widget class="QLineEdit" name="lineEditOkpo"/>
-         </item>
-         <item row="7" column="0">
+         <item row="8" column="0">
           <widget class="QLabel" name="label_6">
            <property name="text">
             <string>Категория</string>
            </property>
           </widget>
          </item>
-         <item row="7" column="1">
+         <item row="9" column="1">
+          <widget class="QLineEdit" name="lineEditBank"/>
+         </item>
+         <item row="8" column="1">
           <widget class="QComboBox" name="comboBoxKat">
            <property name="editable">
             <bool>true</bool>
            </property>
           </widget>
          </item>
-         <item row="8" column="0">
+         <item row="9" column="0">
           <widget class="QLabel" name="label_7">
            <property name="text">
             <string>Банк</string>
            </property>
           </widget>
          </item>
-         <item row="8" column="1">
-          <widget class="QLineEdit" name="lineEditBank"/>
+         <item row="10" column="1">
+          <widget class="QLineEdit" name="lineEditCity"/>
          </item>
-         <item row="9" column="0">
+         <item row="10" column="0">
           <widget class="QLabel" name="label_8">
            <property name="text">
             <string>Город</string>
            </property>
           </widget>
          </item>
-         <item row="9" column="1">
-          <widget class="QLineEdit" name="lineEditCity"/>
+         <item row="11" column="1">
+          <widget class="QLineEdit" name="lineEditBIK"/>
          </item>
-         <item row="10" column="0">
+         <item row="11" column="0">
           <widget class="QLabel" name="label_9">
            <property name="text">
             <string>БИК</string>
            </property>
           </widget>
          </item>
-         <item row="10" column="1">
-          <widget class="QLineEdit" name="lineEditBIK"/>
+         <item row="12" column="1">
+          <widget class="QLineEdit" name="lineEditRs"/>
          </item>
-         <item row="11" column="0">
+         <item row="12" column="0">
           <widget class="QLabel" name="label_10">
            <property name="text">
             <string>Расч/сч</string>
            </property>
           </widget>
          </item>
-         <item row="11" column="1">
-          <widget class="QLineEdit" name="lineEditRs"/>
+         <item row="13" column="1">
+          <widget class="QLineEdit" name="lineEditKs"/>
          </item>
-         <item row="12" column="0">
+         <item row="13" column="0">
           <widget class="QLabel" name="label_11">
            <property name="text">
             <string>Корр/сч</string>
            </property>
           </widget>
          </item>
-         <item row="12" column="1">
-          <widget class="QLineEdit" name="lineEditKs"/>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_14">
+           <property name="text">
+            <string>Наименование анг.</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="lineEditNaimEn"/>
          </item>
         </layout>
        </item>

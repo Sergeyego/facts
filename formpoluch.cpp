@@ -23,6 +23,7 @@ FormPoluch::FormPoluch(QWidget *parent) :
     modelPoluch->addColumn(QString("bik"),QString::fromUtf8("bik"),false,TYPE_STRING);
     modelPoluch->addColumn(QString("okpo"),QString::fromUtf8("okpo"),false,TYPE_STRING);
     modelPoluch->addColumn(QString("adres_egrul"),QString::fromUtf8("adres_egrul"),false,TYPE_STRING);
+    modelPoluch->addColumn(QString("naim_en"),QString::fromUtf8("naim"),false,TYPE_STRING);
 
     modelPoluch->setSort("poluch.short");
     modelPoluch->select();
@@ -49,6 +50,7 @@ FormPoluch::FormPoluch(QWidget *parent) :
     mapper->addMapping(ui->lineEditBIK,11);
     mapper->addMapping(ui->lineEditOkpo,12);
     mapper->addMapping(ui->lineEditAdresEgrul,13);
+    mapper->addMapping(ui->lineEditNaimEn,14);
 
     ui->horizontalLayoutMapper->insertWidget(0,mapper);
 }
