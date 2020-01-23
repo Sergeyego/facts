@@ -14,6 +14,7 @@ public slots:
     void refresh(int id_fact);
     void insCenNds(QDate date);
     void insDataSert(int id_sert);
+    void insDataBill(int id_bill);
 };
 
 #endif // MODELFACTWIRE_H

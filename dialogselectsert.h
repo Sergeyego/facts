@@ -2,7 +2,6 @@
 #define DIALOGSELECTSERT_H
 
 #include <QDialog>
-#include <QSqlQueryModel>
 #include <QSortFilterProxyModel>
 #include "rels.h"
 

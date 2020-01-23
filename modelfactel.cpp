@@ -73,3 +73,22 @@ void ModelFactEl::insDataSert(int id_sert)
         }
     }
 }
+
+void ModelFactEl::insDataBill(int id_bill)
+{
+    if (this->rowCount()>0){
+        int id_fact=data(index(0,1),Qt::EditRole).toInt();
+        QSqlQuery query;
+        query.prepare("insert into it_fact (id_f, id_el, diam, kvo, ed, nazv, nds, dn, cen_nds, up) "
+                      "(select :id_f, b.id_el, b.diam, b.kvo, b.ed, b.nazv, b.nds, b.dn, b.cen_nds, b.up "
+                      "from it_bill as b where b.id_b = :id_bill )");
+        query.bindValue(":id_f",id_fact);
+        query.bindValue(":id_bill",id_bill);
+        if (query.exec()){
+            select();
+            emit sigUpd();
+        } else {
+            QMessageBox::critical(NULL,QString::fromUtf8("Ошибка"),query.lastError().text(),QMessageBox::Ok);
+        }
+    }
+}

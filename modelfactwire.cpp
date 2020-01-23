@@ -78,3 +78,23 @@ void ModelFactWire::insDataSert(int id_sert)
         }
     }
 }
+
+void ModelFactWire::insDataBill(int id_bill)
+{
+    if (this->rowCount()>0){
+        int id_fact=data(index(0,1),Qt::EditRole).toInt();
+        QSqlQuery query;
+        query.prepare("insert into wire_it_fact (id_f, id_prov, id_diam, id_pack, kvo, ed, nazv, nds, up, dn, cen_nds)"
+                      "(select :id_f, b.id_prov, b.id_diam, b.id_pack, b.kvo, b.ed, b.nazv, b.nds, b.up, b.dn, b.cen_nds "
+                      "from wire_it_bill as b "
+                      "where b.id_b = :id_bill )");
+        query.bindValue(":id_f",id_fact);
+        query.bindValue(":id_bill",id_bill);
+        if (query.exec()){
+            select();
+            emit sigUpd();
+        } else {
+            QMessageBox::critical(NULL,QString::fromUtf8("Ошибка"),query.lastError().text(),QMessageBox::Ok);
+        }
+    }
+}

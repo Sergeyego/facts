@@ -9,6 +9,7 @@
 #include "models.h"
 #include "numstr.h"
 #include "dialogselectsert.h"
+#include "dialogselectbill.h"
 #include "xlsx/xlsxdocument.h"
 #include "factinfo.h"
 #include <QSettings>
@@ -51,6 +52,7 @@ private slots:
     void updTotal();
     void insCen();
     void setSert();
+    void setBill();
     void createFact();
     void createTvr();
     void createTn();

@@ -55,7 +55,8 @@ SOURCES += \
     formelprice.cpp \
     numstr.cpp \
     factinfo.cpp \
-    db/dbxlsx.cpp
+    db/dbxlsx.cpp \
+    dialogselectbill.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -86,7 +87,8 @@ HEADERS += \
     formelprice.h \
     numstr.h \
     factinfo.h \
-    db/dbxlsx.h
+    db/dbxlsx.h \
+    dialogselectbill.h
 
 FORMS += \
         mainwindow.ui \
@@ -100,7 +102,8 @@ FORMS += \
     formpoluch.ui \
     formcarrier.ui \
     formwireprice.ui \
-    formelprice.ui
+    formelprice.ui \
+    dialogselectbill.ui
 
 RESOURCES += \
     res.qrc

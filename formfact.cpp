@@ -98,6 +98,7 @@ FormFact::FormFact(QWidget *parent) :
     mapper->addEmptyLock(ui->tableViewWire);
     mapper->addLock(ui->checkBoxPolFlt);
     mapper->addEmptyLock(ui->cmdSert);
+    mapper->addEmptyLock(ui->cmdBill);
     mapper->addLock(ui->cmdUpd);
     mapper->addLock(ui->cmdCen);
     mapper->addLock(ui->comboBoxPEl);
@@ -117,6 +118,7 @@ FormFact::FormFact(QWidget *parent) :
     connect(ui->cmdCen,SIGNAL(clicked(bool)),this,SLOT(insCen()));
     connect(modelFact,SIGNAL(sigUpd()),this,SLOT(setDatePrice()));
     connect(ui->cmdSert,SIGNAL(clicked(bool)),this,SLOT(setSert()));
+    connect(ui->cmdBill,SIGNAL(clicked(bool)),this,SLOT(setBill()));
     connect(Rels::instance(),SIGNAL(sigRefresh()),mapper,SLOT(refresh()));
     connect(ui->cmdFact,SIGNAL(clicked(bool)),this,SLOT(createFact()));
     connect(ui->cmdNakl,SIGNAL(clicked(bool)),this,SLOT(createTvr()));
@@ -225,6 +227,17 @@ void FormFact::setSert()
         modelFactWire->insDataSert(id_sert);
         modelFact->setData(modelFact->index(mapper->currentIndex(),5),id_sert,Qt::EditRole);
         modelFact->submitRow();
+    }
+}
+
+void FormFact::setBill()
+{
+    int id_pol=modelFact->data(modelFact->index(mapper->currentIndex(),3),Qt::EditRole).toInt();
+    DialogSelectBill d(id_pol);
+    if (d.exec()==QDialog::Accepted){
+        int id_bill=d.idBill();
+        modelFactEl->insDataBill(id_bill);
+        modelFactWire->insDataBill(id_bill);
     }
 }
 
