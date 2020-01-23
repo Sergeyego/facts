@@ -19,6 +19,7 @@ bool ModelBill::insertRow(int row, const QModelIndex &parent)
     int old_num=0;
     if (rowCount()>0) old_num=this->data(this->index(rowCount()-1,1),Qt::EditRole).toInt();
     setDefaultValue(1,QString("%1").arg((old_num+1),3,'d',0,QChar('0')));
+    setDefaultValue(2,QDate::currentDate());
     return DbTableModel::insertRow(row,parent);
 }
 

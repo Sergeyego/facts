@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>898</width>
-    <height>530</height>
+    <width>896</width>
+    <height>528</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -307,6 +307,7 @@
   <tabstop>lineEditCity</tabstop>
   <tabstop>lineEditBik</tabstop>
   <tabstop>lineEditInnkpp</tabstop>
+  <tabstop>lineEditOkpo</tabstop>
   <tabstop>lineEditBoss</tabstop>
   <tabstop>lineEditTelboss</tabstop>
   <tabstop>lineEditBuh</tabstop>

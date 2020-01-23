@@ -153,7 +153,7 @@ bool DbDelegate::eventFilter(QObject *object, QEvent *event)
         }
 
         if(keyEvent->key()==Qt::Key_Tab || keyEvent->key()==Qt::Key_Down || keyEvent->key()==Qt::Key_Up){
-            qDebug()<<"Key_Tab";
+            //qDebug()<<"Key_Tab";
             QWidget *editor = qobject_cast<QWidget*>(object);
             emit commitData(editor);
             emit closeEditor(editor);

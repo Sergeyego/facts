@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>896</width>
-    <height>507</height>
+    <width>894</width>
+    <height>505</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -232,9 +232,12 @@
  <tabstops>
   <tabstop>lineEditShort</tabstop>
   <tabstop>lineEditNaim</tabstop>
+  <tabstop>lineEditNaimEn</tabstop>
   <tabstop>lineEditAdres</tabstop>
+  <tabstop>lineEditAdresEgrul</tabstop>
   <tabstop>lineEditTelef</tabstop>
   <tabstop>lineEditInnKpp</tabstop>
+  <tabstop>lineEditOkpo</tabstop>
   <tabstop>comboBoxKat</tabstop>
   <tabstop>lineEditBank</tabstop>
   <tabstop>lineEditCity</tabstop>

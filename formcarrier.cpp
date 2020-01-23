@@ -28,7 +28,7 @@ FormCarrier::FormCarrier(QWidget *parent) :
     mapper->addMapping(ui->lineEditInn,4);
     mapper->addLock(ui->listViewShort);
 
-    ui->verticalLayout->addWidget(mapper);
+    ui->horizontalLayoutBtn->insertWidget(0,mapper);
 
 }
 
