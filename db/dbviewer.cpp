@@ -11,7 +11,7 @@ DbViewer::DbViewer(QWidget *parent) :
 
     updAct = new QAction(tr("Обновить"),this);
     removeAct = new QAction(tr("Удалить"),this);
-    saveAct = new QAction(tr("Сохранить"),this);
+    //saveAct = new QAction(tr("Сохранить"),this);
     this->setAutoScroll(true);
     this->setItemDelegate(new DbDelegate(this));
     writeOk=true;
@@ -146,10 +146,14 @@ void DbViewer::contextMenuEvent(QContextMenuEvent *event)
 {
     QMenu menu(this);
     if (menuEnabled){
+        //if (this->editTriggers()!=QAbstractItemView::NoEditTriggers){
         menu.addAction(updAct);
         menu.addSeparator();
         menu.addAction(removeAct);
         menu.addSeparator();
+        //}
+        //menu.addAction(saveAct);
+        //menu.addSeparator();
     }
     menu.exec(event->globalPos());
 }
@@ -160,4 +164,5 @@ DateEdit::DateEdit(QWidget *parent): QDateEdit(parent)
     QCalendarWidget * pCW = new QCalendarWidget(this);
     pCW->setFirstDayOfWeek( Qt::Monday );
     this->setCalendarWidget( pCW );
+    this->setDisplayFormat("dd.MM.yy");
 }

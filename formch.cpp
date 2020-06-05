@@ -82,6 +82,8 @@ FormCh::FormCh(QWidget *parent) :
     mapper->addEmptyLock(ui->tableViewEl);
     mapper->addEmptyLock(ui->tableViewWire);
 
+    mapper->setDefaultFocus(3);
+
     connect(ui->checkBoxPlat,SIGNAL(clicked(bool)),ui->comboBoxFltPlat,SLOT(setEnabled(bool)));
     connect(ui->cmdUpd,SIGNAL(clicked(bool)),this,SLOT(refreshBill()));
     connect(mapper,SIGNAL(currentIndexChanged(int)),this,SLOT(updDataBill(int)));

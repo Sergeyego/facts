@@ -26,7 +26,7 @@ protected:
 private:
     QAction *updAct;
     QAction *removeAct;
-    QAction *saveAct;
+    //QAction *saveAct;
     bool menuEnabled;
     bool writeOk;
 
@@ -38,7 +38,6 @@ private slots:
 
 public slots:
      void setMenuEnabled(bool value);
-
 };
 
 class DateEdit : public QDateEdit{

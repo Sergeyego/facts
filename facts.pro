@@ -117,6 +117,4 @@ DISTFILES += \
     templates/ttn17.xlsx \
     templates/tvr_s.xlsx \
     templates/tvr.xlsx \
-    office.sh \
-    office.bat \
     ico.rc

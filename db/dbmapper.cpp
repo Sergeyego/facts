@@ -33,10 +33,11 @@ DbMapper::DbMapper(QAbstractItemView *v, QWidget *parent) :
     mapper->setModel(v->model());
     mapper->setItemDelegate(new DbDelegate(this));
     isEdt=false;
+    defaultFocus=0;
 
     DbTableModel *sqlModel = qobject_cast<DbTableModel *>(mapper->model());
     if (sqlModel){
-        connect(sqlModel,SIGNAL(sigRefresh()),this,SLOT(first()));
+        connect(sqlModel,SIGNAL(sigRefresh()),this,SLOT(last()));
         connect(sqlModel,SIGNAL(sigRefresh()),this,SLOT(checkEmpty()));
     }
 
@@ -117,6 +118,11 @@ int DbMapper::currentIndex()
     return mapper->currentIndex();
 }
 
+void DbMapper::setDefaultFocus(int n)
+{
+    defaultFocus=n;
+}
+
 void DbMapper::refresh()
 {
     mapper->setCurrentIndex(mapper->currentIndex());
@@ -151,11 +157,15 @@ void DbMapper::slotNew()
         mapper->toLast();
         setCurrentViewRow(sqlModel->rowCount()-1);
         if (sqlModel->isAdd()) lock(true);
-        for (int i=0; i<mapper->model()->columnCount(); i++){
-            if (mapper->mappedWidgetAt(i)) {
-                mapper->mappedWidgetAt(i)->setFocus();
-                break;
+        if (!defaultFocus){
+            for (int i=0; i<mapper->model()->columnCount(); i++){
+                if (mapper->mappedWidgetAt(i)) {
+                    mapper->mappedWidgetAt(i)->setFocus();
+                    break;
+                }
             }
+        } else {
+            if (mapper->mappedWidgetAt(defaultFocus)) mapper->mappedWidgetAt(defaultFocus)->setFocus();
         }
     }
 }
@@ -218,4 +228,10 @@ void DbMapper::first()
 {
     mapper->toFirst();
     setCurrentViewRow(0);
+}
+
+void DbMapper::last()
+{
+    mapper->toLast();
+    setCurrentViewRow(mapper->model()->rowCount()-1);
 }

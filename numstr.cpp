@@ -183,13 +183,15 @@ QString intstr(int n)
 
 void sysCommand(QString fname)
 {
-    QString totalName=fname;
+/*    QString totalName=fname;
 #if defined(Q_OS_WIN)
     totalName=totalName.replace(QChar('/'),QString("\\"));
     QString cmd=QString("start office.bat ")+QString("\"")+totalName+QString("\"");
 #else
     QString cmd=QString("./office.sh ")+QString("'")+totalName+QString("' &");
 #endif
-    system(cmd.toLocal8Bit().data());
+    system(cmd.toLocal8Bit().data());*/
+    QFileInfo fileInfo(fname);
+    QDesktopServices::openUrl((QUrl(QUrl::fromLocalFile(fileInfo.absoluteFilePath()))));
     return;
 }

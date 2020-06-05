@@ -107,6 +107,8 @@ FormFact::FormFact(QWidget *parent) :
     mapper->addEmptyLock(ui->cmdNakl);
     mapper->addEmptyLock(ui->cmdTn);
 
+    mapper->setDefaultFocus(3);
+
     connect(ui->cmdUpd,SIGNAL(clicked(bool)),this,SLOT(refreshFact()));
     connect(ui->checkBoxPolFlt,SIGNAL(clicked(bool)),ui->comboBoxPolFlt,SLOT(setEnabled(bool)));
     //connect(ui->checkBoxPolFlt,SIGNAL(clicked(bool)),this,SLOT(refreshFact()));

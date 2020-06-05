@@ -702,7 +702,7 @@ void DbRelation::reHash()
 {
     dict.clear();
     for (int i=0; i<relQueryModel->rowCount(); i++){
-        QString key=relQueryModel->data(relQueryModel->index(i,keyCol)).toString();
+        QString key=relQueryModel->data(relQueryModel->index(i,keyCol),Qt::EditRole).toString();
         QModelIndex val=relQueryModel->index(i,dispCol);
         dict[key]=val;
     }

@@ -118,7 +118,7 @@ void DbDelegate::setModelData ( QWidget * editor, QAbstractItemModel * model, co
         if (combo) {
             combo->setCurrentIndex(combo->findText(combo->currentText()));
             QVariant v=combo->model()->data(combo->model()->index(combo->currentIndex(),sqlModel->relation(index.column())->columnKey()),Qt::EditRole);
-            QVariant val = v.isNull() ? QVariant() : v.toInt();
+            QVariant val = v.isNull() ? QVariant() : v;
             sqlModel->setData(index,val,Qt::EditRole);
         } else {
             return;

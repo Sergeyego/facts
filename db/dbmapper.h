@@ -23,6 +23,7 @@ public:
     bool isLock();
     void addMapping(QWidget *widget, int section);
     int currentIndex();
+    void setDefaultFocus(int n);
     
 private:
     QVector <QWidget*> lock1;
@@ -37,6 +38,7 @@ private:
     QPushButton *cmdDel;
     QHBoxLayout *mainLayout;
     bool isEdt;
+    int defaultFocus;
 
 public slots:
     void refresh();
@@ -46,6 +48,7 @@ public slots:
     void slotWrite();
     void slotEsc();
     void first();
+    void last();
     void setCurrentViewRow(int row);
 
 private slots:
