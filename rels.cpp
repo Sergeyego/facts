@@ -24,6 +24,20 @@ Rels::Rels(QObject *parent) : QObject(parent)
     modelKlad = new DbRelationalModel(QString("select distinct klad from facts where dat>='"+QDate::currentDate().addYears(-1).toString("yyyy-MM-dd")+"'"),this);
     modelElPriceDate = new DbRelationalModel(QString("select distinct dat from cena order by dat desc"),this);
     modelWirePriceDate = new DbRelationalModel(QString("select distinct dat from wire_cena order by dat desc"),this);
+    refreshCurrentHoz();
+}
+
+void Rels::refreshCurrentHoz()
+{
+    QSqlQuery query;
+    query.prepare("select max(id) from hoz where current=true");
+    if (query.exec()){
+        while (query.next()){
+            current_hoz=query.value(0).toInt();
+        }
+    } else {
+        QMessageBox::critical(NULL,tr("Error"),query.lastError().text(),QMessageBox::Cancel);
+    }
 }
 
 void Rels::refresh()
@@ -41,6 +55,7 @@ void Rels::refresh()
     modelKlad->refresh();
     modelElPriceDate->refresh();
     modelWirePriceDate->refresh();
+    refreshCurrentHoz();
 
     emit sigRefresh();
 }

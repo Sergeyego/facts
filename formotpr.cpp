@@ -15,6 +15,7 @@ FormOtpr::FormOtpr(QWidget *parent) :
     for (int i=2; i<cols.size(); i++){
         modelOtpr->addColumn(cols.at(i),cols.at(i),false,TYPE_STRING);
     }
+    modelOtpr->addColumn("current","current",false,TYPE_BOOL);
     modelOtpr->setSort("hoz.nam");
     modelOtpr->select();
 
@@ -45,6 +46,7 @@ FormOtpr::FormOtpr(QWidget *parent) :
     mapper->addMapping(ui->lineEditEmpl,16);
     mapper->addMapping(ui->lineEditTelfax,17);
     mapper->addMapping(ui->lineEditOkpo,18);
+    mapper->addMapping(ui->checkBoxCurrent,19);
 
     ui->horizontalLayoutMapper->insertWidget(0,mapper);
 }

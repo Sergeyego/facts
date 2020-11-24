@@ -21,6 +21,7 @@ public:
     DbRelationalModel *modelKlad;
     DbRelationalModel *modelElPriceDate;
     DbRelationalModel *modelWirePriceDate;
+    int current_hoz;
 
 protected:
     explicit Rels(QObject *parent = nullptr);
@@ -33,6 +34,7 @@ signals:
 
 public slots:
     void refresh();
+    void refreshCurrentHoz();
 
 };
 

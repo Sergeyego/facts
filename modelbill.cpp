@@ -10,7 +10,6 @@ ModelBill::ModelBill(QObject *parent) : DbTableModel("bills",parent)
     addColumn(QString("disc"),QString::fromUtf8("Скидка"),false,TYPE_DOUBLE, new QDoubleValidator(0,200,2,this));
 
     setSort("bills.dat, bills.nums");
-    setDefaultValue(4,11);
     setDefaultValue(5,0);
 }
 
@@ -20,6 +19,7 @@ bool ModelBill::insertRow(int row, const QModelIndex &parent)
     if (rowCount()>0) old_num=this->data(this->index(rowCount()-1,1),Qt::EditRole).toInt();
     setDefaultValue(1,QString("%1").arg((old_num+1),3,'d',0,QChar('0')));
     setDefaultValue(2,QDate::currentDate());
+    setDefaultValue(4,Rels::instance()->current_hoz);
     return DbTableModel::insertRow(row,parent);
 }
 

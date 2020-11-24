@@ -29,8 +29,6 @@ ModelFact::ModelFact(QObject *parent) : DbTableModel(QString::fromUtf8("facts"),
     addColumn(QString("drvd"),QString::fromUtf8("Тн. додж."),false,TYPE_STRING);
 
     setSort("facts.dat, facts.nums");
-    setDefaultValue(4,11);
-    setDefaultValue(10,11);
     setDefaultValue(6,0);
     setDefaultValue(23,QString::fromUtf8("Заведующий складом"));
     setDefaultValue(24,QString::fromUtf8("водитель"));
@@ -42,6 +40,8 @@ bool ModelFact::insertRow(int row, const QModelIndex &parent)
     if (rowCount()>0) old_num=this->data(this->index(rowCount()-1,1),Qt::EditRole).toInt();
     setDefaultValue(1,QString("%1").arg((old_num+1),4,'d',0,QChar('0')));
     setDefaultValue(2,QDate::currentDate());
+    setDefaultValue(4,Rels::instance()->current_hoz);
+    setDefaultValue(10,Rels::instance()->current_hoz);
     return DbTableModel::insertRow(row,parent);
 }
 

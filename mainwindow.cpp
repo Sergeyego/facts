@@ -60,6 +60,7 @@ void MainWindow::edtOtpr()
     FormOtpr f;
     f.exec();
     Rels::instance()->relPost->model()->refresh();
+    Rels::instance()->refreshCurrentHoz();
 }
 
 void MainWindow::edtPoluch()
