@@ -540,7 +540,7 @@ void FormFact::createTn()
     int id_fact=modelFact->data(modelFact->index(mapper->currentIndex(),0),Qt::EditRole).toInt();
     FactInfo info(id_fact);
 
-    QString templ=QString::fromUtf8("templates/ttn17.xlsx");
+    QString templ=QString::fromUtf8("templates/tn21.xlsx");
     if (!QFile::exists(templ)){
         QMessageBox::critical(this,QString::fromUtf8("Ошибка"),QString::fromUtf8("Ошибка открытия шаблона ")+templ,QMessageBox::Ok);
         return;
@@ -558,36 +558,43 @@ void FormFact::createTn()
     QString head=QString::fromUtf8("ТРАНСПОРТНАЯ НАКЛАДНАЯ ");
 
     head+=info.nums()+QString::fromUtf8(" от ")+info.dat().toString("dd.MM.yyyy");
-    ws->writeString(CellReference("CM10"),info.nums());
-    ws->writeString(CellReference("BI10"),info.dat().toString("dd.MM.yyyy"));
-    ws->writeString(CellReference("B15"),info.otpr()->info());
-    ws->writeString(CellReference("BD15"),info.pol()->info());
+
+    ws->writeString(CellReference("G9"),info.dat().toString("dd.MM.yyyy"));
+    ws->writeString(CellReference("AK9"),info.nums());
+
+    ws->writeString(CellReference("B14"),info.otpr()->info());
+    ws->writeString(CellReference("BF14"),info.pol()->info());
 
     QString gruz;
     if (modelFactEl->rowCount()>0 && !modelFactEl->isAdd()){
         gruz+=QString::fromUtf8("сварочные электроды");
     }
     if (modelFactWire->rowCount()>0 && !modelFactWire->isAdd()){
-        if (!gruz.isEmpty()) gruz+=QString::fromUtf8(" ,");
+        if (!gruz.isEmpty()) gruz+=QString::fromUtf8(", ");
         gruz+=QString::fromUtf8("сварочная проволока");
     }
-    ws->writeString(CellReference("B18"),gruz);
+    ws->writeString(CellReference("B24"),gruz);
 
     QString kg=QLocale().toString(info.sumKvo())+QString::fromUtf8(" (")+intstr(info.sumKvo())+QString::fromUtf8(" килограмм.) кг");
-    ws->writeString(CellReference("B22"),kg);
+    ws->writeString(CellReference("B30"),kg);
 
-    ws->writeString(CellReference("B40"),info.otpr()->adr());
-    ws->writeString(CellReference("BD40"),info.pol()->adr());
-    ws->writeString(CellReference("B42"),info.dat().toString("dd.MM.yyyy"));
-    ws->writeString(CellReference("B48"),kg);
-    ws->writeString(CellReference("BD48"),kg);
+    QString doc;
+    doc+=QString::fromUtf8("Счет-фактура, накладная по форме Торг-12 №%1 от %2, сертификаты качества").arg(info.nums()).arg(info.dat().toString("dd.MM.yyyy"));
+    ws->writeString(CellReference("B38"),doc);
 
-    ws->writeString(CellReference("B50"),info.pos_klad()+QString::fromUtf8("                     ")+info.klad());
+    ws->writeString(CellReference("B53"),info.otpr()->info());
+    ws->writeString(CellReference("B55"),info.otpr()->adr());
+    ws->writeString(CellReference("B57"),info.dat().toString("dd.MM.yyyy"));
+    ws->writeString(CellReference("BF54"),info.pol()->adr());
+    ws->writeString(CellReference("B63"),kg);
+    ws->writeString(CellReference("BF63"),kg);
+
+    ws->writeString(CellReference("B65"),info.pos_klad()+QString::fromUtf8("                     ")+info.klad());
     QString vod=info.drvd()+QString::fromUtf8("                        ")+info.drv();
-    ws->writeString(CellReference("B52"),vod);
-    ws->writeString(CellReference("BD52"),vod);
+    ws->writeString(CellReference("B69"),vod);
+    ws->writeString(CellReference("BF69"),vod);
 
-    ws->writeString(CellReference("B67"),info.dat().toString("dd.MM.yyyy"));
+    ws->writeString(CellReference("B86"),info.dat().toString("dd.MM.yyyy"));
 
     QString prin=info.carrier();
     if (!prin.isEmpty()){
@@ -601,7 +608,7 @@ void FormFact::createTn()
     if (!ui->lineEditPasp->text().isEmpty() && !info.drv().isEmpty()){
         prin+=QString::fromUtf8(" паспорт ")+ui->lineEditPasp->text();
     }
-    ws->writeString(CellReference("AD67"),prin);
+    ws->writeString(CellReference("AD86"),prin);
 
     xlsx.selectSheet(sheets.at(1));
     ws=xlsx.currentWorksheet();
@@ -609,17 +616,15 @@ void FormFact::createTn()
     ws->writeString(CellReference("B7"),info.carrier());
     ws->writeString(CellReference("B9"),info.drv());
     ws->writeString(CellReference("B12"),info.transport());
-    ws->writeString(CellReference("BP12"),info.transport_num());
+    ws->writeString(CellReference("BF12"),info.transport_num());
 
-    ws->writeString(CellReference("B41"),info.otpr()->fnam()+", "+info.otpr()->nach());
-    ws->writeString(CellReference("AE41"),info.dat().toString("dd.MM.yyyy"));
+    ws->writeString(CellReference("B32"),info.otpr()->fnam()+QString::fromUtf8(", нач. отдела сбыта ")+info.otpr()->nach());
     QString car=info.carrier_nam();
     if (!car.isEmpty()){
         car+=", ";
     }
     car+=info.drvd()+" "+info.drv();
-    ws->writeString(CellReference("BD41"),car);
-    ws->writeString(CellReference("CG41"),info.dat().toString("dd.MM.yyyy"));
+    ws->writeString(CellReference("BF32"),car);
 
     QDir dir(QDir::homePath()+QString::fromUtf8("/TTN"));
     if (!dir.exists()) dir.mkdir(dir.path());

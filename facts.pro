@@ -117,4 +117,5 @@ DISTFILES += \
     templates/ttn17.xlsx \
     templates/tvr_s.xlsx \
     templates/tvr.xlsx \
-    ico.rc
+    ico.rc \
+    templates/tn21.xlsx
