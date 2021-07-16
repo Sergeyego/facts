@@ -118,4 +118,5 @@ DISTFILES += \
     templates/tvr_s.xlsx \
     templates/tvr.xlsx \
     ico.rc \
-    templates/tn21.xlsx
+    templates/tn21.xlsx \
+    templates/fact21.xlsx

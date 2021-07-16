@@ -54,6 +54,7 @@ private slots:
     void setSert();
     void setBill();
     void createFact();
+    void createFact17();
     void createTvr();
     void createTn();
 };

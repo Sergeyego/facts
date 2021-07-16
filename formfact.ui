@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1090</width>
-    <height>748</height>
+    <height>752</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -553,6 +553,13 @@
           <widget class="QPushButton" name="cmdFact">
            <property name="text">
             <string>Счет-фактура</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="cmdFact17">
+           <property name="text">
+            <string>С-Ф (2017)</string>
            </property>
           </widget>
          </item>
