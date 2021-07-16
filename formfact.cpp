@@ -269,13 +269,17 @@ void FormFact::createFact()
     ws->writeString(CellReference("Q12"),info.prod()->innkpp());
     ws->writeString(CellReference("X13"),info.otpr()->fnam()+" "+info.otpr()->adr());
     ws->writeString(CellReference("W14"),info.pol()->fnam()+" "+info.pol()->adr());
-    ws->writeString(CellReference("AD15"),info.plt());
+    QString plt=info.plt();
+    if (!info.dop().isEmpty()){
+        plt+=QString::fromUtf8(", ")+info.dop();
+    }
+    ws->writeString(CellReference("AD15"),plt);
     ws->writeString(CellReference("K17"),info.plat()->fnam());
     ws->writeString(CellReference("G18"),info.plat()->adr());
     ws->writeString(CellReference("S19"),info.plat()->innkpp());
-    if (!info.dop().isEmpty()){
+    /*if (!info.dop().isEmpty()){
         ws->writeString(CellReference("A22"),QString::fromUtf8("Дополнение: ")+info.dop());
-    }
+    }*/
 
     int i=0;
     ws->insertRows(26,info.data().size()-1,true,true);
