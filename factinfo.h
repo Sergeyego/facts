@@ -98,6 +98,7 @@ public:
     QString transport();
     QString transport_num();
     QString drvd();
+    int grm();
     QVector <factData> data() const;
     double sumStoi();
     double sumNalog();

@@ -27,6 +27,7 @@ ModelFact::ModelFact(QObject *parent) : DbTableModel(QString::fromUtf8("facts"),
     addColumn(QString("transport_num"),QString::fromUtf8("Регистрац. номер"),false,TYPE_STRING);
     addColumn(QString("pos_klad"),QString::fromUtf8("Отп. додж."),false,TYPE_STRING);
     addColumn(QString("drvd"),QString::fromUtf8("Тн. додж."),false,TYPE_STRING);
+    addColumn(QString("grm"),QString::fromUtf8("Груз.мест"),false,TYPE_INT,new QIntValidator(1,999999,this));
 
     setSort("facts.dat, facts.nums");
     setDefaultValue(6,0);

@@ -94,6 +94,7 @@ FormFact::FormFact(QWidget *parent) :
     mapper->addMapping(ui->lineEditTransportNum,22);
     mapper->addMapping(ui->lineEditPosKlad,23);
     mapper->addMapping(ui->lineEditDrvD,24);
+    mapper->addMapping(ui->lineEditGrM,25);
     mapper->addEmptyLock(ui->tableViewEl);
     mapper->addEmptyLock(ui->tableViewWire);
     mapper->addLock(ui->checkBoxPolFlt);
@@ -126,6 +127,7 @@ FormFact::FormFact(QWidget *parent) :
     connect(ui->cmdFact17,SIGNAL(clicked(bool)),this,SLOT(createFact17()));
     connect(ui->cmdNakl,SIGNAL(clicked(bool)),this,SLOT(createTvr()));
     connect(ui->cmdTn,SIGNAL(clicked(bool)),this,SLOT(createTn()));
+    connect(ui->cmdTn21,SIGNAL(clicked(bool)),this,SLOT(createTn21()));
 
     refreshFact();
 
@@ -614,7 +616,7 @@ void FormFact::createTvrSurgut(FactInfo *info)
     return;
 }
 
-void FormFact::createTn()
+void FormFact::createTn21()
 {
     int id_fact=modelFact->data(modelFact->index(mapper->currentIndex(),0),Qt::EditRole).toInt();
     FactInfo info(id_fact);
@@ -704,6 +706,107 @@ void FormFact::createTn()
     }
     car+=info.drvd()+" "+info.drv();
     ws->writeString(CellReference("BF32"),car);
+
+    QDir dir(QDir::homePath()+QString::fromUtf8("/TTN"));
+    if (!dir.exists()) dir.mkdir(dir.path());
+    QString fname=head.replace(QRegExp("[^\\w]"), "_")+QString::fromUtf8(".xlsx");
+    while (fname.contains("__")){
+        fname=fname.replace("__","_");
+    }
+    QString totalName=dir.path()+QChar('/')+fname;
+    xlsx.saveAs(totalName);
+
+    sysCommand(totalName);
+    return;
+}
+
+void FormFact::createTn()
+{
+    int id_fact=modelFact->data(modelFact->index(mapper->currentIndex(),0),Qt::EditRole).toInt();
+    FactInfo info(id_fact);
+
+    QString templ=QString::fromUtf8("templates/tn22.xlsx");
+    if (!QFile::exists(templ)){
+        QMessageBox::critical(this,QString::fromUtf8("Ошибка"),QString::fromUtf8("Ошибка открытия шаблона ")+templ,QMessageBox::Ok);
+        return;
+    }
+
+    Document xlsx(templ);
+    QStringList sheets=xlsx.sheetNames();
+    if (sheets.size()<2){
+        QMessageBox::critical(this,QString::fromUtf8("Ошибка"),QString::fromUtf8("Шаблон содержит меньше двух листов ")+templ,QMessageBox::Ok);
+        return;
+    }
+
+    xlsx.selectSheet(sheets.at(0));
+    Worksheet *ws=xlsx.currentWorksheet();
+    QString head=QString::fromUtf8("ТРАНСПОРТНАЯ НАКЛАДНАЯ ");
+
+    head+=info.nums()+QString::fromUtf8(" от ")+info.dat().toString("dd.MM.yyyy");
+
+    ws->writeString(CellReference("G9"),info.dat().toString("dd.MM.yyyy"));
+    ws->writeString(CellReference("AC9"),info.nums());
+
+    ws->writeString(CellReference("B15"),info.otpr()->info());
+    ws->writeString(CellReference("B20"),info.pol()->info());
+
+    ws->writeString(CellReference("B22"),info.pol()->adr());
+
+    QString gruz;
+    if (modelFactEl->rowCount()>0 && !modelFactEl->isAdd()){
+        gruz+=QString::fromUtf8("сварочные электроды");
+    }
+    if (modelFactWire->rowCount()>0 && !modelFactWire->isAdd()){
+        if (!gruz.isEmpty()) gruz+=QString::fromUtf8(", ");
+        gruz+=QString::fromUtf8("сварочная проволока");
+    }
+    ws->writeString(CellReference("B25"),gruz);
+
+    int grm=info.grm();
+    QString sgrm;
+    if (grm>0){
+        sgrm=QString::number(grm)+QString::fromUtf8(" (")+intstr(grm)+QString::fromUtf8(")");
+    }
+
+    ws->writeString(CellReference("BF25"),sgrm);
+
+    QString kg=QLocale().toString(info.sumKvo())+QString::fromUtf8(" (")+intstr(info.sumKvo())+QString::fromUtf8(" килограмм.) кг");
+    ws->writeString(CellReference("B27"),kg);
+
+    QString doc;
+    doc+=QString::fromUtf8("Счет-фактура, накладная по форме Торг-12 №%1 от %2").arg(info.nums()).arg(info.dat().toString("dd.MM.yyyy"));
+    ws->writeString(CellReference("B36"),doc);
+    ws->writeString(CellReference("B34"),QString::fromUtf8("Сертификаты качества"));
+
+    ws->writeString(CellReference("B44"),info.carrier());
+    ws->writeString(CellReference("BF44"),info.drv());
+
+    ws->writeString(CellReference("B47"),info.transport());
+    ws->writeString(CellReference("BF47"),info.transport_num());
+
+    ws->writeString(CellReference("B56"),info.otpr()->info());
+    ws->writeString(CellReference("B58"),info.otpr()->info());
+
+    ws->writeString(CellReference("B60"),info.otpr()->adr());
+
+    ws->writeString(CellReference("B70"),info.pos_klad());
+    ws->writeString(CellReference("N70"),info.klad());
+
+    ws->writeString(CellReference("BF70"),info.drvd());
+    ws->writeString(CellReference("BR70"),info.drv());
+
+    xlsx.selectSheet(sheets.at(1));
+    ws=xlsx.currentWorksheet();
+
+    ws->writeString(CellReference("B3"),info.pol()->adr());
+    ws->writeString(CellReference("BF7"),sgrm);
+    ws->writeString(CellReference("B9"),kg+QString::fromUtf8(" (нетто)"));
+
+    ws->writeString(CellReference("B11"),QString::fromUtf8("Нач. отдела сбыта"));
+    ws->writeString(CellReference("AH11"),info.otpr()->nach());
+
+    ws->writeString(CellReference("BF11"),info.drvd());
+    ws->writeString(CellReference("BR11"),info.drv());
 
     QDir dir(QDir::homePath()+QString::fromUtf8("/TTN"));
     if (!dir.exists()) dir.mkdir(dir.path());

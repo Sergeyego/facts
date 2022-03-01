@@ -57,6 +57,7 @@ private slots:
     void createFact17();
     void createTvr();
     void createTn();
+    void createTn21();
 };
 
 #endif // FORMFACT_H

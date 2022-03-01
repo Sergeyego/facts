@@ -114,9 +114,10 @@ DISTFILES += \
     templates/bill_of.xlsx \
     templates/bill.xlsx \
     templates/fact17.xlsx \
-    templates/ttn17.xlsx \
     templates/tvr_s.xlsx \
     templates/tvr.xlsx \
     ico.rc \
     templates/tn21.xlsx \
-    templates/fact21.xlsx
+    templates/fact21.xlsx \
+    templates/tn17.xlsx \
+    templates/tn22.xlsx

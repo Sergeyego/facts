@@ -9,7 +9,7 @@ FactInfo::FactInfo(int id_fact, QObject *parent) : QObject(parent)
 
     queryFact.prepare("select f.nums, f.dat, f.disc, f.id_hoz, f.nom_dov, f.dat_dov, f.otpr, f.lic_dov, "
                       "f.id_g, f.org_dov, f.plt, f.id_p, f.pos_pol, f.nam_pol, f.dop, po.id_kat, f.pos_klad, f.klad, "
-                      "f.drv, c.nam, c.adres, c.inn, f.transport, f.transport_num, f.drvd "
+                      "f.drv, c.nam, c.adres, c.inn, f.transport, f.transport_num, f.drvd, f.grm "
                       "from facts as f "
                       "inner join poluch as po on po.id = f.id_p "
                       "left join carrier as c on c.id = f.id_carrier "
@@ -167,6 +167,11 @@ QString FactInfo::transport_num()
 QString FactInfo::drvd()
 {
     return (queryFact.size()<1) ? QString() : queryFact.value(24).toString();
+}
+
+int FactInfo::grm()
+{
+    return (queryFact.size()<1) ? 0 : queryFact.value(25).toInt();
 }
 
 QVector<factData> FactInfo::data() const

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1090</width>
-    <height>752</height>
+    <width>975</width>
+    <height>872</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -285,7 +285,7 @@
          <item>
           <widget class="DbViewer" name="tableViewEl">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -545,14 +545,21 @@
          <item>
           <widget class="QPushButton" name="cmdTn">
            <property name="text">
-            <string>Трансп. накл.</string>
+            <string>Т.Н.</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="cmdTn21">
+           <property name="text">
+            <string>Т.Н.(2021)</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="cmdFact">
            <property name="text">
-            <string>Счет-фактура</string>
+            <string>С-Ф</string>
            </property>
           </widget>
          </item>
@@ -583,24 +590,24 @@
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
           <layout class="QGridLayout" name="gridLayout">
-           <item row="0" column="0">
-            <widget class="QPushButton" name="cmdBill">
-             <property name="text">
-              <string>Счет</string>
+           <item row="4" column="1" colspan="2">
+            <widget class="QLineEdit" name="lineEditNumDov"/>
+           </item>
+           <item row="6" column="1" colspan="5">
+            <widget class="QLineEdit" name="lineEditOrgDov">
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+              </font>
              </property>
             </widget>
            </item>
-           <item row="0" column="2" colspan="4">
-            <widget class="QLineEdit" name="lineEditSert">
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="3">
-            <widget class="QLabel" name="label_16">
-             <property name="text">
-              <string>От</string>
+           <item row="5" column="1" colspan="5">
+            <widget class="QLineEdit" name="lineEditLicDov">
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+              </font>
              </property>
             </widget>
            </item>
@@ -618,15 +625,12 @@
              </property>
             </widget>
            </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_15">
+           <item row="6" column="0">
+            <widget class="QLabel" name="label_18">
              <property name="text">
-              <string>Доверен. №</string>
+              <string>Организац.</string>
              </property>
             </widget>
-           </item>
-           <item row="4" column="1" colspan="2">
-            <widget class="QLineEdit" name="lineEditNumDov"/>
            </item>
            <item row="5" column="0">
             <widget class="QLabel" name="label_17">
@@ -635,28 +639,31 @@
              </property>
             </widget>
            </item>
-           <item row="6" column="0">
-            <widget class="QLabel" name="label_18">
+           <item row="4" column="3">
+            <widget class="QLabel" name="label_16">
              <property name="text">
-              <string>Организац.</string>
+              <string>От</string>
              </property>
             </widget>
            </item>
-           <item row="5" column="1" colspan="5">
-            <widget class="QLineEdit" name="lineEditLicDov">
-             <property name="font">
-              <font>
-               <pointsize>9</pointsize>
-              </font>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="cmdBill">
+             <property name="text">
+              <string>Счет</string>
              </property>
             </widget>
            </item>
-           <item row="6" column="1" colspan="5">
-            <widget class="QLineEdit" name="lineEditOrgDov">
-             <property name="font">
-              <font>
-               <pointsize>9</pointsize>
-              </font>
+           <item row="0" column="2" colspan="4">
+            <widget class="QLineEdit" name="lineEditSert">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_15">
+             <property name="text">
+              <string>Доверен. №</string>
              </property>
             </widget>
            </item>
@@ -786,6 +793,23 @@
            <property name="maximumSize">
             <size>
              <width>120</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_29">
+           <property name="text">
+            <string>К-во гр. мест</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEditGrM">
+           <property name="maximumSize">
+            <size>
+             <width>60</width>
              <height>16777215</height>
             </size>
            </property>
