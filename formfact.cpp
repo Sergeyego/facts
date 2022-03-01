@@ -802,9 +802,6 @@ void FormFact::createTn()
     ws->writeString(CellReference("BF7"),sgrm);
     ws->writeString(CellReference("B9"),kg+QString::fromUtf8(" (нетто)"));
 
-    ws->writeString(CellReference("B11"),QString::fromUtf8("Нач. отдела сбыта"));
-    ws->writeString(CellReference("AH11"),info.otpr()->nach());
-
     ws->writeString(CellReference("BF11"),info.drvd());
     ws->writeString(CellReference("BR11"),info.drv());
 
