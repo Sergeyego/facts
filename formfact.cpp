@@ -788,6 +788,7 @@ void FormFact::createTn()
     ws->writeString(CellReference("B58"),info.otpr()->info());
 
     ws->writeString(CellReference("B60"),info.otpr()->adr());
+    ws->writeString(CellReference("B64"),kg);
 
     ws->writeString(CellReference("B70"),info.pos_klad());
     ws->writeString(CellReference("N70"),info.klad());
