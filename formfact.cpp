@@ -303,7 +303,7 @@ void FormFact::createFact()
         i++;
     }
 
-    ws->writeString(CellReference("W16"),QString("1-%1").arg(i));
+    //ws->writeString(CellReference("W16"),QString("1-%1").arg(i));
     ws->writeString(CellReference("AP16"),info.nums());
     ws->writeString(CellReference("BI16"),d.toString("dd.MM.yyyy"));
 
