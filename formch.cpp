@@ -183,7 +183,7 @@ void FormCh::insCen()
 
 void FormCh::createBill()
 {
-    QString templ=QString::fromUtf8("templates/bill.xlsx");
+    QString templ=QDir::homePath()+QString::fromUtf8("/.szsm/templates/bill.xlsx");
     if (!QFile::exists(templ)){
         QMessageBox::critical(this,QString::fromUtf8("Ошибка"),QString::fromUtf8("Ошибка открытия шаблона ")+templ,QMessageBox::Ok);
         return;
@@ -306,7 +306,7 @@ void FormCh::createBill()
 
 void FormCh::createBillOf()
 {
-    QString templ=QString::fromUtf8("templates/bill_of.xlsx");
+    QString templ=QDir::homePath()+QString::fromUtf8("/.szsm/templates/bill_of.xlsx");
     if (!QFile::exists(templ)){
         QMessageBox::critical(this,QString::fromUtf8("Ошибка"),QString::fromUtf8("Ошибка открытия шаблона ")+templ,QMessageBox::Ok);
         return;

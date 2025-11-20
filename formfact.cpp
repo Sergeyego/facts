@@ -248,7 +248,7 @@ void FormFact::setBill()
 
 void FormFact::createFact()
 {
-    QString templ=QString::fromUtf8("templates/fact21.xlsx");
+    QString templ=QDir::homePath()+QString::fromUtf8("/.szsm/templates/fact21.xlsx");
     if (!QFile::exists(templ)){
         QMessageBox::critical(this,QString::fromUtf8("Ошибка"),QString::fromUtf8("Ошибка открытия шаблона ")+templ,QMessageBox::Ok);
         return;
@@ -326,7 +326,7 @@ void FormFact::createFact()
 
 void FormFact::createFact17()
 {
-    QString templ=QString::fromUtf8("templates/fact17.xlsx");
+    QString templ=QDir::homePath()+QString::fromUtf8("/.szsm/templates/fact17.xlsx");
     if (!QFile::exists(templ)){
         QMessageBox::critical(this,QString::fromUtf8("Ошибка"),QString::fromUtf8("Ошибка открытия шаблона ")+templ,QMessageBox::Ok);
         return;
@@ -402,7 +402,7 @@ void FormFact::createTvr()
         return;
     }
 
-    QString templ=QString::fromUtf8("templates/tvr.xlsx");
+    QString templ=QDir::homePath()+QString::fromUtf8("/.szsm/templates/tvr.xlsx");
     if (!QFile::exists(templ)){
         QMessageBox::critical(this,QString::fromUtf8("Ошибка"),QString::fromUtf8("Ошибка открытия шаблона ")+templ,QMessageBox::Ok);
         return;
@@ -506,7 +506,7 @@ void FormFact::createTvr()
 
 void FormFact::createTvrSurgut(FactInfo *info)
 {
-    QString templ=QString::fromUtf8("templates/tvr_s.xlsx");
+    QString templ=QDir::homePath()+QString::fromUtf8("/.szsm/templates/tvr_s.xlsx");
     if (!QFile::exists(templ)){
         QMessageBox::critical(this,QString::fromUtf8("Ошибка"),QString::fromUtf8("Ошибка открытия шаблона ")+templ,QMessageBox::Ok);
         return;
@@ -621,7 +621,7 @@ void FormFact::createTn21()
     int id_fact=modelFact->data(modelFact->index(mapper->currentIndex(),0),Qt::EditRole).toInt();
     FactInfo info(id_fact);
 
-    QString templ=QString::fromUtf8("templates/tn21.xlsx");
+    QString templ=QDir::homePath()+QString::fromUtf8("/.szsm/templates/tn21.xlsx");
     if (!QFile::exists(templ)){
         QMessageBox::critical(this,QString::fromUtf8("Ошибка"),QString::fromUtf8("Ошибка открытия шаблона ")+templ,QMessageBox::Ok);
         return;
@@ -725,7 +725,7 @@ void FormFact::createTn()
     int id_fact=modelFact->data(modelFact->index(mapper->currentIndex(),0),Qt::EditRole).toInt();
     FactInfo info(id_fact);
 
-    QString templ=QString::fromUtf8("templates/tn22.xlsx");
+    QString templ=QDir::homePath()+QString::fromUtf8("/.szsm/templates/tn22.xlsx");
     if (!QFile::exists(templ)){
         QMessageBox::critical(this,QString::fromUtf8("Ошибка"),QString::fromUtf8("Ошибка открытия шаблона ")+templ,QMessageBox::Ok);
         return;
