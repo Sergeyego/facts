@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>975</width>
-    <height>872</height>
+    <width>983</width>
+    <height>886</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -564,9 +564,9 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="cmdFact17">
+          <widget class="QPushButton" name="cmdFact24">
            <property name="text">
-            <string>С-Ф (2017)</string>
+            <string>С-Ф (2024)</string>
            </property>
           </widget>
          </item>

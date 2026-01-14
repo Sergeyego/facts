@@ -77,7 +77,6 @@ FormFact::FormFact(QWidget *parent) :
     mapper->addMapping(ui->comboBoxPost,4);
     mapper->addMapping(ui->comboBoxOtpr,10);
     mapper->addMapping(ui->lineEditSert,5);
-    //mapper->addMapping(ui->lineEditCherez,13);
     mapper->addMapping(ui->lineEditDop,8);
     mapper->addMapping(ui->lineEditPosPol,17);
     mapper->addMapping(ui->lineEditNamPol,18);
@@ -112,8 +111,6 @@ FormFact::FormFact(QWidget *parent) :
 
     connect(ui->cmdUpd,SIGNAL(clicked(bool)),this,SLOT(refreshFact()));
     connect(ui->checkBoxPolFlt,SIGNAL(clicked(bool)),ui->comboBoxPolFlt,SLOT(setEnabled(bool)));
-    //connect(ui->checkBoxPolFlt,SIGNAL(clicked(bool)),this,SLOT(refreshFact()));
-    //connect(ui->comboBoxPolFlt,SIGNAL(currentIndexChanged(int)),this,SLOT(refreshFact()));
     connect(ui->comboBoxPlat,SIGNAL(currentIndexChanged(int)),this,SLOT(selectPlat(int)));
     connect(mapper,SIGNAL(currentIndexChanged(int)),this,SLOT(updContents(int)));
     connect(modelFactEl,SIGNAL(sigUpd()),this,SLOT(updTotal()));
@@ -124,7 +121,7 @@ FormFact::FormFact(QWidget *parent) :
     connect(ui->cmdBill,SIGNAL(clicked(bool)),this,SLOT(setBill()));
     connect(Rels::instance(),SIGNAL(sigRefresh()),mapper,SLOT(refresh()));
     connect(ui->cmdFact,SIGNAL(clicked(bool)),this,SLOT(createFact()));
-    connect(ui->cmdFact17,SIGNAL(clicked(bool)),this,SLOT(createFact17()));
+    connect(ui->cmdFact24,SIGNAL(clicked(bool)),this,SLOT(createFact24()));
     connect(ui->cmdNakl,SIGNAL(clicked(bool)),this,SLOT(createTvr()));
     connect(ui->cmdTn,SIGNAL(clicked(bool)),this,SLOT(createTn()));
     connect(ui->cmdTn21,SIGNAL(clicked(bool)),this,SLOT(createTn21()));
@@ -248,7 +245,85 @@ void FormFact::setBill()
 
 void FormFact::createFact()
 {
-    QString templ=QDir::homePath()+QString::fromUtf8("/.szsm/templates/fact21.xlsx");
+    QString templ=QDir::homePath()+QString::fromUtf8("/.szsm/templates/fact26.xlsx");
+    if (!QFile::exists(templ)){
+        QMessageBox::critical(this,QString::fromUtf8("Ошибка"),QString::fromUtf8("Ошибка открытия шаблона ")+templ,QMessageBox::Ok);
+        return;
+    }
+
+    int id_fact=modelFact->data(modelFact->index(mapper->currentIndex(),0),Qt::EditRole).toInt();
+
+    Document xlsx(templ);
+    Worksheet *ws=xlsx.currentWorksheet();
+    QString head=QString::fromUtf8("СЧЕТ-ФАКТУРА ");
+
+    FactInfo info(id_fact);
+    head+=info.nums()+QString::fromUtf8(" от ")+info.dat().toString("dd.MM.yyyy");
+    ws->writeString(CellReference("AR8"),info.nums());
+    QDate d=info.dat();
+    ws->writeNumeric(CellReference("BG8"),d.day());
+    ws->writeString(CellReference("BO8"),QDate::longMonthName(d.month())+QString::fromUtf8(" ")+QString::number(d.year())+QString::fromUtf8(" года"));
+    ws->writeString(CellReference("J10"),info.prod()->fnam());
+    ws->writeString(CellReference("G11"),info.prod()->adr());
+    ws->writeString(CellReference("Q12"),info.prod()->innkpp());
+    ws->writeString(CellReference("X13"),info.otpr()->fnam()+" "+info.otpr()->adr());
+    ws->writeString(CellReference("W14"),info.pol()->fnam()+" "+info.pol()->adr());
+    ws->writeString(CellReference("AD15"),info.plt());
+    ws->writeString(CellReference("K19"),info.plat()->fnam());
+    ws->writeString(CellReference("G20"),info.plat()->adr());
+    ws->writeString(CellReference("S21"),info.plat()->innkpp());
+    QStringList dop=info.dop().split(QString::fromUtf8(" от "));
+    if (dop.size()==2){
+        ws->writeString(CellReference("AC18"),dop.at(0));
+        ws->writeString(CellReference("AV18"),dop.at(1));
+    } else {
+        ws->writeString(CellReference("AC18"),info.dop());
+    }
+
+    int i=0;
+    const int bstr=28;
+    ws->insertRows(bstr,info.data().size()-1,true,true);
+    for (factData cnt : info.data()){
+        QString nam=cnt.naim;
+        if (cnt.diam!=0.0){
+            nam+= QString::fromUtf8(" ф ")+QString::number(cnt.diam);
+        }
+        ws->writeString(bstr+i,1,QString::number(i+1));
+        ws->writeString(bstr+i,5,nam);
+        ws->writeString(bstr+i,26,cnt.edCod);
+        ws->writeString(bstr+i,31,cnt.ed);
+        ws->writeNumeric(bstr+i,42,cnt.kvo);
+        ws->writeNumeric(bstr+i,49,cnt.cena);
+        ws->writeNumeric(bstr+i,58,cnt.stoi);
+        ws->writeString(bstr+i,76,QString::number(cnt.nds)+QString::fromUtf8("%"));
+        ws->writeNumeric(bstr+i,83,cnt.nalog);
+        ws->writeNumeric(bstr+i,92,cnt.itogo);
+        i++;
+    }
+
+    ws->writeString(CellReference("AP16"),info.nums());
+    ws->writeString(CellReference("BI16"),d.toString("dd.MM.yyyy"));
+
+    ws->writeNumeric(bstr+i,58,info.sumStoi());
+    ws->writeNumeric(bstr+i,83,info.sumNalog());
+    ws->writeNumeric(bstr+i,92,info.sumItogo());
+
+    QDir dir(QDir::homePath()+QString::fromUtf8("/FACT"));
+    if (!dir.exists()) dir.mkdir(dir.path());
+    QString fname=head.replace(QRegExp("[^\\w]"), "_")+QString::fromUtf8(".xlsx");
+    while (fname.contains("__")){
+        fname=fname.replace("__","_");
+    }
+    QString totalName=dir.path()+QChar('/')+fname;
+    xlsx.saveAs(totalName);
+
+    sysCommand(totalName);
+    return;
+}
+
+void FormFact::createFact24()
+{
+    QString templ=QDir::homePath()+QString::fromUtf8("/.szsm/templates/fact24.xlsx");
     if (!QFile::exists(templ)){
         QMessageBox::critical(this,QString::fromUtf8("Ошибка"),QString::fromUtf8("Ошибка открытия шаблона ")+templ,QMessageBox::Ok);
         return;
@@ -310,75 +385,6 @@ void FormFact::createFact()
     ws->writeNumeric(26+i,58,info.sumStoi());
     ws->writeNumeric(26+i,83,info.sumNalog());
     ws->writeNumeric(26+i,92,info.sumItogo());
-
-    QDir dir(QDir::homePath()+QString::fromUtf8("/FACT"));
-    if (!dir.exists()) dir.mkdir(dir.path());
-    QString fname=head.replace(QRegExp("[^\\w]"), "_")+QString::fromUtf8(".xlsx");
-    while (fname.contains("__")){
-        fname=fname.replace("__","_");
-    }
-    QString totalName=dir.path()+QChar('/')+fname;
-    xlsx.saveAs(totalName);
-
-    sysCommand(totalName);
-    return;
-}
-
-void FormFact::createFact17()
-{
-    QString templ=QDir::homePath()+QString::fromUtf8("/.szsm/templates/fact17.xlsx");
-    if (!QFile::exists(templ)){
-        QMessageBox::critical(this,QString::fromUtf8("Ошибка"),QString::fromUtf8("Ошибка открытия шаблона ")+templ,QMessageBox::Ok);
-        return;
-    }
-
-    int id_fact=modelFact->data(modelFact->index(mapper->currentIndex(),0),Qt::EditRole).toInt();
-
-    Document xlsx(templ);
-    Worksheet *ws=xlsx.currentWorksheet();
-    QString head=QString::fromUtf8("СЧЕТ-ФАКТУРА ");
-
-    FactInfo info(id_fact);
-    head+=info.nums()+QString::fromUtf8(" от ")+info.dat().toString("dd.MM.yyyy");
-    ws->writeString(CellReference("AS7"),info.nums());
-    QDate d=info.dat();
-    ws->writeNumeric(CellReference("BF7"),d.day());
-    ws->writeString(CellReference("BN7"),QDate::longMonthName(d.month())+QString::fromUtf8(" ")+QString::number(d.year())+QString::fromUtf8(" года"));
-    ws->writeString(CellReference("M10"),info.prod()->fnam());
-    ws->writeString(CellReference("I11"),info.prod()->adr());
-    ws->writeString(CellReference("Y12"),info.prod()->innkpp());
-    ws->writeString(CellReference("AI13"),info.otpr()->fnam()+" "+info.otpr()->adr());
-    ws->writeString(CellReference("AH14"),info.pol()->fnam()+" "+info.pol()->adr());
-    ws->writeString(CellReference("AS15"),info.plt());
-    ws->writeString(CellReference("O16"),info.plat()->fnam());
-    ws->writeString(CellReference("I17"),info.plat()->adr());
-    ws->writeString(CellReference("AA18"),info.plat()->innkpp());
-    if (!info.dop().isEmpty()){
-        ws->writeString(CellReference("A21"),QString::fromUtf8("Дополнение: ")+info.dop());
-    }
-
-    int i=0;
-    ws->insertRows(25,info.data().size()-1,true,true);
-    for (factData cnt : info.data()){
-        QString nam=cnt.naim;
-        if (cnt.diam!=0.0){
-            nam+= QString::fromUtf8(" ф ")+QString::number(cnt.diam);
-        }
-        ws->writeString(25+i,1,nam);
-        ws->writeString(25+i,29,cnt.edCod);
-        ws->writeString(25+i,35,cnt.ed);
-        ws->writeNumeric(25+i,46,cnt.kvo);
-        ws->writeNumeric(25+i,54,cnt.cena);
-        ws->writeNumeric(25+i,65,cnt.stoi);
-        ws->writeString(25+i,90,QString::number(cnt.nds)+QString::fromUtf8("%"));
-        ws->writeNumeric(25+i,100,cnt.nalog);
-        ws->writeNumeric(25+i,112,cnt.itogo);
-        i++;
-    }
-
-    ws->writeNumeric(25+i,65,info.sumStoi());
-    ws->writeNumeric(25+i,100,info.sumNalog());
-    ws->writeNumeric(25+i,112,info.sumItogo());
 
     QDir dir(QDir::homePath()+QString::fromUtf8("/FACT"));
     if (!dir.exists()) dir.mkdir(dir.path());
